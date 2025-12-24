@@ -1,10 +1,12 @@
-import { Route, Routes } from 'react-router-dom';
-import Navbar from './component/Navbar';
-import HomePage from './pages/HomePage';
-import LoginPage from './pages/LoginPage';
-import RegisterPage from './pages/RegisterPage';
-import TodoPage from './pages/TodoPage';
-import ProtectedRoute from './component/ProtectedRoute';
+import { Route, Routes } from "react-router-dom";
+import Navbar from "./component/Navbar";
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import TodoPage from "./pages/TodoPage";
+import MenuPage from "./pages/MenuPage"; // ⬅️ TAMBAHAN
+import Footer from "./component/Footer"; 
+import ProtectedRoute from "./component/ProtectedRoute";
 
 function App() {
   return (
@@ -14,6 +16,10 @@ function App() {
       <main className="app-main">
         <Routes>
           <Route path="/" element={<HomePage />} />
+
+          {/* MENU PAGE */}
+          <Route path="/menu" element={<MenuPage />} />
+
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
 
@@ -27,6 +33,8 @@ function App() {
           />
         </Routes>
       </main>
+      
+      <Footer /> {/* ⬅️ FOOTER */}
     </div>
   );
 }
