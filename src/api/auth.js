@@ -1,4 +1,5 @@
 import { apiRequest } from '../apiClient';
+import { apiAuthRequest } from '../apiClient';
 
 export async function registerApi(payload) {
   // payload: { name, email, password, password_confirmation }
@@ -13,5 +14,11 @@ export async function loginApi(payload) {
   return apiRequest('/login', {
     method: 'POST',
     body: JSON.stringify(payload),
+  });
+}
+
+export async function logoutApi(token) {
+  return apiAuthRequest('/logout', token, {
+    method: 'POST',
   });
 }
