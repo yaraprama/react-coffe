@@ -302,75 +302,198 @@ a {
     font-size: 2.4rem;
   }
 }
-/* ===== MENU PAGE ===== */
+
+/* ======================================================
+   MENU PAGE (ARUA MENU UI)
+   ====================================================== */
+
+/* ===== MENU WRAPPER ===== */
 .menu-page {
-  padding: 7rem 6rem 4rem;
+  padding: 4rem 2.5rem 2rem;
 }
 
+/* ===== MENU HEADER ===== */
 .menu-header {
-  text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 2.5rem;
 }
 
-.menu-header h1 {
-  font-size: 3rem;
-  margin-bottom: 0.5rem;
+.menu-header .welcome {
+  font-size: 1.4rem;
+  color: #f59e0b;
 }
 
 .menu-header p {
-  color: #666;
-}
-
-/* GRID MENU */
-.menu-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 2rem;
-}
-
-/* CARD */
-.menu-card {
-  background: #fff;
-  border-radius: 1.2rem;
-  overflow: hidden;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
-  transition: transform 0.3s ease;
-}
-
-.menu-card:hover {
-  transform: translateY(-6px);
-}
-
-/* IMAGE */
-.menu-image {
-  height: 220px;
-  background-size: cover;
-  background-position: center;
-}
-
-/* INFO */
-.menu-info {
-  padding: 1rem 1.2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.menu-info h3 {
+  margin-top: 0.4rem;
+  color: #555;
   font-size: 1rem;
 }
 
-.menu-info span {
-  font-weight: 600;
-  color: #8a6006;
+/* ===== MENU HERO ===== */
+.menu-hero {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  margin-bottom: 3.5rem;
 }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
+.hero-left img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 1.25rem;
+}
+
+.hero-right img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 1.25rem;
+}
+
+/* ===== CATEGORY ===== */
+.menu-category {
+  margin-bottom: 3.5rem;
+}
+
+.menu-category h3 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.category-scroll {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.category-scroll img {
+  height: 70px;
+  min-width: 110px;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.category-scroll img:hover {
+  transform: translateY(-4px);
+}
+
+/* ===== TOP MENU ===== */
+.menu-top {
+  margin-bottom: 2rem;
+}
+
+.menu-top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.menu-top-header h3 {
+  font-size: 1.2rem;
+}
+
+.menu-top-header span {
+  color: #8a6006;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+/* ===== PRODUCT GRID ===== */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.5rem;
+}
+
+/* ===== CARD ===== */
+.menu-card {
+  background: #fff;
+  border-radius: 1.2rem;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.08);
+  overflow: hidden;
+  position: relative;
+}
+
+.menu-card img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+}
+
+.menu-card-body {
+  padding: 1rem;
+}
+
+.menu-card-body h4 {
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+
+.menu-card-body p {
+  font-size: 0.8rem;
+  color: #777;
+  line-height: 1.4;
+}
+
+/* ===== PRICE & ACTION ===== */
+.menu-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.menu-card-footer .price {
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+.menu-card-footer .rating {
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.menu-card-footer button {
+  margin-left: auto;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  background: #f59e0b;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.menu-card-footer button:hover {
+  background: #d97706;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1200px) {
+  .menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
   .menu-page {
     padding: 6rem 2rem 3rem;
   }
+
+  .menu-hero {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
+
 
 /* ====== FOOTER ====== */
 .footer {
