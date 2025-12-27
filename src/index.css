@@ -98,6 +98,46 @@ a {
   background: #8a6006;
   border-radius: 2px;
 }
+
+.nav-user {
+  position: relative;
+}
+
+/* dropdown container */
+.user-dropdown {
+  position: absolute;
+  right: 0;
+  top: 120%;
+  min-width: 140px;          /* ⬅️ bikin memanjang */
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0,0,0,.15);
+  overflow: hidden;
+}
+
+/* tombol logout */
+.logout-btn {
+  width: 100%;               /* ⬅️ full lebar */
+  background: none;
+  border: none;
+  padding: 0.75rem 1.2rem;   /* ⬅️ jarak nyaman */
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+
+  display: flex;             /* ⬅️ cegah teks turun */
+  align-items: center;
+  justify-content: center;
+
+  white-space: nowrap;       /* ⬅️ TEKS TIDAK TURUN */
+}
+
+/* hover */
+.logout-btn:hover {
+  background: #8a6006;
+  color: #ffffff;
+}
+
 .home-header .app-nav a {
   color: #333;
 }
@@ -1004,3 +1044,4 @@ a {
     padding: 5rem 1.5rem 3rem;
   }
 }
+

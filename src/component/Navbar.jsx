@@ -1,14 +1,17 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { FiSearch, FiShoppingCart, FiUser } from "react-icons/fi";
 
 export default function Navbar() {
-  const { isAuthenticated, user, logout } = useAuth();
+  const { isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
   return (
     <header className="app-header">
       <div className="navbar-container">
+
         {/* LOGO */}
         <Link to="/" className="app-brand">
           ARUA · <span>COFFE</span>
@@ -33,22 +36,37 @@ export default function Navbar() {
             <FiShoppingCart />
           </button>
 
-          {!isAuthenticated || !user ? (
+          {!isAuthenticated ? (
             <button className="nav-icon" onClick={() => navigate("/login")}>
               <FiUser />
             </button>
           ) : (
             <div className="nav-user">
-              <div className="user-avatar">
-                {user?.name ? user.name.charAt(0).toUpperCase() : "?"}
-              </div>
-
-              <button className="logout-btn" onClick={logout}>
-                Logout
+              <button
+                className="nav-icon"
+                onClick={() => setOpen(!open)}
+              >
+                <FiUser />
               </button>
+
+              {open && (
+                <div className="user-dropdown">
+                  <button
+                    className="logout-btn"
+                    onClick={() => {
+                      logout();
+                      setOpen(false);
+                      navigate("/login");
+                    }}
+                  >
+                    LOG OUT
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </div>
+
       </div>
     </header>
   );
