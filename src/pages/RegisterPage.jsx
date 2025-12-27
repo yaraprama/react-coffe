@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { registerApi } from "../api/auth";
 import { useAuth } from "../context/AuthContext";
 
@@ -38,11 +38,8 @@ function RegisterPage() {
 
     try {
       const data = await registerApi(form);
-
-      // auto login setelah register
       login(data.token, data.user);
-
-      navigate("/todos");
+      navigate("/");
     } catch (err) {
       setError(err.message || "Register gagal");
     } finally {
@@ -51,96 +48,90 @@ function RegisterPage() {
   };
 
   return (
-    <section className="card">
-      <header className="card-header">
-        <h1 className="card-title">Buat Akun Baru</h1>
-        <p className="card-subtitle">
-          Silakan melakukan registrasi akun agar bisa akses booking Arua Coffe.
-        </p>
-      </header>
+    <div className="register-page">
+      <div className="register-card">
+        <div className="register-header">
+          <h2 className="register-title">Buat Akun Baru</h2>
+          <p className="register-subtitle">
+            Silakan daftar untuk menikmati layanan Arua Coffee
+          </p>
+        </div>
 
-      <div className="card-body">
-        <form className="form-vertical" onSubmit={handleSubmit}>
-          <div className="form-field">
-            <label className="form-label" htmlFor="name">
-              Nama
-            </label>
-            <input
-              id="name"
-              name="name"
-              className="input"
-              value={form.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="form-field">
-            <label className="form-label" htmlFor="email">
-              Email
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              className="input"
-              value={form.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="form-field">
-            <label className="form-label" htmlFor="password">
-              Password
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              className="input"
-              value={form.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="form-field">
-            <label
-              className="form-label"
-              htmlFor="password_confirmation"
-            >
-              Konfirmasi Password
-            </label>
-            <input
-              id="password_confirmation"
-              name="password_confirmation"
-              type="password"
-              className="input"
-              value={form.password_confirmation}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          {error && (
-            <div className="alert alert-error">
-              {error}
+        <div className="register-body">
+          <form className="register-form" onSubmit={handleSubmit}>
+            <div className="register-field">
+              <label className="register-label">Nama</label>
+              <input
+                className="register-input"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
+                required
+              />
             </div>
-          )}
 
-          <div className="btn-row">
+            <div className="register-field">
+              <label className="register-label">Email</label>
+              <input
+                className="register-input"
+                type="email"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="register-field">
+              <label className="register-label">Password</label>
+              <input
+                className="register-input"
+                type="password"
+                name="password"
+                value={form.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="register-field">
+              <label className="register-label">
+                Konfirmasi Password
+              </label>
+              <input
+                className="register-input"
+                type="password"
+                name="password_confirmation"
+                value={form.password_confirmation}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            {error && (
+              <div className="register-error">
+                {error}
+              </div>
+            )}
+
             <button
+              className="register-btn"
               type="submit"
-              className="btn btn-primary"
               disabled={loading}
             >
               {loading ? "Mendaftar..." : "Daftar"}
             </button>
-          </div>
-        </form>
+
+            <p className="register-footer">
+              Sudah punya akun?{" "}
+              <Link to="/login" className="register-link">
+                Login di sini
+              </Link>
+            </p>
+          </form>
+        </div>
       </div>
-    </section>
+    </div>
   );
 }
 

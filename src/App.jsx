@@ -5,8 +5,10 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import TodoPage from "./pages/TodoPage";
 import MenuPage from "./pages/MenuPage"; // ⬅️ TAMBAHAN
+import CartPage from "./pages/CartPage";
 import Footer from "./component/Footer"; 
 import ProtectedRoute from "./component/ProtectedRoute";
+import AboutPage from "./pages/AboutPage";
 
 function App() {
   return (
@@ -19,6 +21,15 @@ function App() {
 
           {/* MENU PAGE */}
           <Route path="/menu" element={<MenuPage />} />
+
+          
+              <Route path="/cart" element={
+            <ProtectedRoute>
+              <CartPage />
+            </ProtectedRoute>
+          } />
+
+          <Route path="/about" element={<AboutPage />} />
 
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />

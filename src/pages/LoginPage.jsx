@@ -1,11 +1,14 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { loginApi } from '../api/auth';
-import { useAuth } from '../context/AuthContext';
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { loginApi } from "../api/auth";
+import { useAuth } from "../context/AuthContext";
 
 function LoginPage() {
-  const [form, setForm] = useState({ email: '', password: '' });
-  const [error, setError] = useState('');
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
@@ -20,68 +23,79 @@ function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
       const data = await loginApi(form);
       login(data.token, data.user);
-      navigate('/HomePage');
+      navigate("/"); // balik ke homepage
     } catch (err) {
-      setError(err.message);
+      setError(err.message || "Login gagal");
     } finally {
       setLoading(false);
     }
   };
 
+  // Kalau sudah login, jangan bisa buka login lagi
   if (isAuthenticated) {
-    navigate('/todos');
+    navigate("/");
+    return null;
   }
 
   return (
     <div className="login-page">
-      <div className="card" style={{ width: "500px", height: "500px" }}>
-        <div className="card-header">
-          <h2 className="card-title">Login</h2>
-          <p className="card-subtitle">Masukkan email dan kata sandi anda</p>
-        </div>
+      <div className="card" style={{ width: "500px" }}>
+        <h2 className="card-title">Login</h2>
+        <p className="card-subtitle">
+          Masukkan email dan kata sandi anda
+        </p>
 
-        <div className="card-body">
-          <form className="form-vertical" onSubmit={handleSubmit}>
-            
-            <div className="form-field">
-              <label className="form-label">Email</label>
-              <input
-                className="input"
-                name="email"
-                type="email"
-                value={form.email}
-                onChange={handleChange}
-                required
-              />
-            </div>
+        <form className="form-vertical" onSubmit={handleSubmit}>
+          {/* EMAIL */}
+          <div className="form-field">
+            <label className="form-label">Email</label>
+            <input
+              className="input"
+              type="email"
+              name="email"
+              value={form.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-            <div className="form-field">
-              <label className="form-label">Password</label>
-              <input
-                className="input"
-                name="password"
-                type="password"
-                value={form.password}
-                onChange={handleChange}
-                required
-              />
-            </div>
+          {/* PASSWORD */}
+          <div className="form-field">
+            <label className="form-label">Password</label>
+            <input
+              className="input"
+              type="password"
+              name="password"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-            <div className="btn-row">
-              <button className="btn btn-primary" type="submit" disabled={loading}>
-                {loading ? "Login..." : "Login"}
-              </button>
-            </div>
+          {/* BUTTON */}
+          <button
+            className="btn btn-primary"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Login..." : "Login"}
+          </button>
 
-            {error && <div className="alert alert-error">{error}</div>}
-          </form>
-        </div>
+          {/* LINK REGISTER */}
+          <p className="login-link">
+            Belum punya akun?{" "}
+            <Link to="/register">Daftar di sini</Link>
+          </p>
+
+          {/* ERROR */}
+          {error && <div className="alert alert-error">{error}</div>}
+        </form>
       </div>
     </div>
   );
