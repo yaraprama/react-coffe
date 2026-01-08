@@ -1,0 +1,125 @@
+/* src/pages/OrdersPage.css */
+
+.orders-container {
+  min-height: 80vh;
+  background-color: #fafafa;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.orders-container h2 {
+  font-family: 'Playfair Display', serif; /* Atau font utama kofimu */
+  font-weight: 700;
+  text-align: center;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.orders-container h2::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background-color: #6f4e37;
+}
+
+.orders-table-wrapper {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+table {
+  border-spacing: 0;
+}
+
+thead th {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #888;
+  border-bottom: 1px solid #eee;
+}
+
+tbody tr:hover {
+  background-color: #fcfaf8;
+  transition: background 0.3s ease;
+}
+
+/* Styling Status Badge */
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.status-pending {
+  background-color: #fff8e1;
+  color: #ffa000;
+}
+
+.status-completed {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+/* Button Detail */
+.btn-detail {
+  background-color: #6f4e37;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.btn-detail:hover {
+  background-color: #5d4030;
+  box-shadow: 0 4px 10px rgba(111, 78, 55, 0.3);
+  transform: translateY(-1px);
+}
+
+/* Responsif untuk layar HP */
+@media (max-width: 768px) {
+  .orders-container {
+    padding: 20px 10px !important;
+  }
+  
+  thead {
+    display: none; /* Sembunyikan header di HP */
+  }
+  
+  tbody tr {
+    display: block;
+    padding: 15px;
+    border-bottom: 10px solid #f4f4f4;
+  }
+  
+  tbody td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0 !important;
+    border: none !important;
+  }
+  
+  tbody td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #888;
+  }
+}

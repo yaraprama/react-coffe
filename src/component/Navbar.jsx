@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { FiSearch, FiShoppingCart, FiUser } from "react-icons/fi";
@@ -8,22 +8,26 @@ export default function Navbar() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
+  // Fungsi helper untuk memberikan class "active"
+  const activeClass = ({ isActive }) => (isActive ? "nav-link active" : "nav-link");
+
   return (
     <header className="app-header">
       <div className="navbar-container">
 
         {/* LOGO */}
-        <Link to="/" className="app-brand">
+        <NavLink to="/" className="app-brand">
           ARUA · <span>COFFE</span>
-        </Link>
+        </NavLink>
 
-        {/* MENU */}
+        {/* MENU DENGAN ACTIVE LINK */}
         <nav className="app-nav">
-          <Link to="/">HOME</Link>
-          <Link to="/about">ABOUT</Link>
-          <Link to="/menu">MENU</Link>
-          <Link to="/story">OUR STORY</Link>
-          <Link to="/contact">CONTACT</Link>
+          <NavLink to="/" className={activeClass}>HOME</NavLink>
+          <NavLink to="/about" className={activeClass}>ABOUT</NavLink>
+          <NavLink to="/menu" className={activeClass}>MENU</NavLink>
+          <NavLink to="/story" className={activeClass}>OUR STORY</NavLink>
+          <NavLink to="/reservation" className={activeClass}>RESERVATION</NavLink>
+          <NavLink to="/contact" className={activeClass}>CONTACT</NavLink>
         </nav>
 
         {/* ACTION ICONS */}

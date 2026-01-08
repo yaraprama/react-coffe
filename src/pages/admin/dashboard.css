@@ -1,0 +1,194 @@
+/* ======================
+   DASHBOARD WRAPPER
+====================== */
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ======================
+   STAT CARDS (ATAS)
+====================== */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.stat-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* ======================
+   GRID UTAMA (BAWAH)
+====================== */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr;
+  grid-template-rows: auto auto;
+  gap: 20px;
+}
+
+/* ======================
+   CARD UMUM
+====================== */
+.card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+/* ======================
+   POSISI TIAP CARD
+====================== */
+.chart-card {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  min-height: 320px;
+}
+
+.performance-card {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  min-height: 220px;
+}
+
+.report-card {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  min-height: 220px;
+}
+
+.order-card {
+  grid-column: 3 / 4;
+  grid-row: 1 / 3;
+  min-height: 320px;
+}
+
+/* ======================
+   DEBUG (OPTIONAL)
+====================== */
+/*
+.card {
+  outline: 1px dashed red;
+}
+*/
+
+
+
+.chart-card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.performance {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.performance-chart {
+  position: relative;
+  width: 100%;
+  height: 160px;
+}
+
+.performance-value {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.performance-desc {
+  font-size: 13px;
+  color: #777;
+  margin-top: 10px;
+}
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.order-table th {
+  text-align: left;
+  font-size: 13px;
+  color: #777;
+  padding-bottom: 10px;
+}
+
+.order-table td {
+  padding: 12px 0;
+  font-size: 14px;
+}
+
+.status {
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.status.success {
+  background: #e6f9f1;
+  color: #1fa971;
+}
+
+.status.pending {
+  background: #fff4e5;
+  color: #ff8a00;
+}
+
+.status.failed {
+  background: #fdeaea;
+  color: #e63946;
+}
+
+.report {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.report-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.report-item svg {
+  font-size: 24px;
+  color: #ff8a00;
+}
+
+.report-item p {
+  font-size: 13px;
+  color: #777;
+  margin: 0;
+}
+
+.report-item h4 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.mini-chart {
+  width: 100%;
+  height: 60px;
+}
+
+.positive {
+  color: #1fa971;
+}

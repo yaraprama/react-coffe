@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { registerApi } from "../api/auth";
-import { useAuth } from "../context/AuthContext";
 
 function RegisterPage() {
   const [form, setForm] = useState({
@@ -15,7 +14,6 @@ function RegisterPage() {
   const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-  const { login } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,6 +27,7 @@ function RegisterPage() {
     e.preventDefault();
     setError("");
 
+    // validasi frontend
     if (form.password !== form.password_confirmation) {
       setError("Password dan konfirmasi password tidak sama");
       return;
@@ -37,9 +36,15 @@ function RegisterPage() {
     setLoading(true);
 
     try {
-      const data = await registerApi(form);
-      login(data.token, data.user);
-      navigate("/");
+      // 🔥 REGISTER ONLY (tanpa login)
+      await registerApi(form);
+
+      // pastikan tidak ada auth tersisa
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+
+      // ➜ arahkan ke login
+      navigate("/login", { replace: true });
     } catch (err) {
       setError(err.message || "Register gagal");
     } finally {
@@ -95,9 +100,7 @@ function RegisterPage() {
             </div>
 
             <div className="register-field">
-              <label className="register-label">
-                Konfirmasi Password
-              </label>
+              <label className="register-label">Konfirmasi Password</label>
               <input
                 className="register-input"
                 type="password"
@@ -108,11 +111,7 @@ function RegisterPage() {
               />
             </div>
 
-            {error && (
-              <div className="register-error">
-                {error}
-              </div>
-            )}
+            {error && <div className="register-error">{error}</div>}
 
             <button
               className="register-btn"
@@ -136,3 +135,4 @@ function RegisterPage() {
 }
 
 export default RegisterPage;
+

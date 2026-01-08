@@ -1,0 +1,175 @@
+.cart-page {
+  padding: 2rem 4rem;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background-color: #f9fafb;
+  color: #333;
+}
+
+.cart-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+/* EMPTY CART */
+.cart-empty {
+  text-align: center;
+  padding: 4rem 0;
+}
+
+.cart-empty p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn {
+  padding: 0.6rem 1.2rem;
+  background-color: #f59e0b;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background-color: #d97706;
+}
+
+.btn-full {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+/* CART LIST */
+.cart-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 100px 1fr 120px 120px;
+  gap: 1rem;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+  align-items: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.cart-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+}
+
+.cart-item-img {
+  width: 100px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* INFO */
+.cart-info h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.cart-info p {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* QTY */
+.cart-qty {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cart-qty button {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: none;
+  background-color: #f59e0b;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.cart-qty button:hover {
+  background-color: #d97706;
+}
+
+.cart-qty span {
+  min-width: 20px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* SUBTOTAL */
+.cart-subtotal {
+  font-weight: 600;
+  color: #f59e0b;
+}
+
+/* SUMMARY */
+.cart-summary {
+  background: #fff;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.cart-summary h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.cart-total {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #f59e0b;
+  margin-bottom: 1rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .cart-item {
+    grid-template-columns: 80px 1fr 100px 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cart-page {
+    padding: 1rem 1.5rem;
+  }
+
+  .cart-item {
+    grid-template-columns: 80px 1fr 80px 80px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cart-item {
+    grid-template-columns: 70px 1fr 70px 70px;
+    gap: 0.5rem;
+  }
+
+  .cart-qty button {
+    width: 28px;
+    height: 28px;
+  }
+}

@@ -1,0 +1,125 @@
+/* CONTAINER UTAMA */
+.menu-admin {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.btn-primary {
+  background: #6f4e37;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+/* TABEL - PERBAIKAN GARIS AKSI */
+.menu-table {
+  width: 100%;
+  border-collapse: collapse; /* MENYATUKAN GARIS */
+  margin: 0;
+  padding: 0;
+}
+
+.menu-table th {
+  padding: 15px;
+  background: #fdfaf7;
+  color: #8b5a2b;
+  text-transform: uppercase;
+  font-size: 13px;
+  border-bottom: 2px solid #eee;
+  text-align: center;
+}
+
+.menu-table td {
+  padding: 15px;
+  border-bottom: 1px solid #eee; /* GARIS UTAMA */
+  text-align: center;
+  vertical-align: middle;
+  color: #444;
+}
+
+/* KHUSUS KOLOM AKSI AGAR GARIS TIDAK RUSAK */
+.menu-table td.actions {
+  display: table-cell; /* MEMAKSA TETAP SEBAGAI SEL TABEL */
+  text-align: center;
+}
+
+.actions {
+  /* Hilangkan display flex di sini jika merusak baris, atau gunakan inline-flex */
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.actions button {
+  background: #f8f9fa;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.actions .danger {
+  color: #dc3545;
+}
+
+/* GAMBAR */
+.menu-table img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+  margin: 0 auto;
+}
+
+/* MODAL TETAP RAPI */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal {
+  background: white;
+  padding: 25px;
+  width: 400px;
+  border-radius: 12px;
+}
+
+.modal input, .modal select, .modal textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-sizing: border-box; /* SUPAYA FORM TIDAK BERANTAKAN */
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}

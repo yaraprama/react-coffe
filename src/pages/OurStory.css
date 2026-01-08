@@ -1,0 +1,73 @@
+.story-container {
+  padding: 40px 10%;
+  font-family: 'Inter', sans-serif;
+  color: #333;
+}
+
+.story-hero {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.story-hero h1 {
+  font-size: 2.5rem;
+  color: #4b3621; /* Warna kopi tua */
+  margin-bottom: 10px;
+}
+
+.story-content {
+  display: flex;
+  gap: 50px;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.story-image img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.story-text h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #4b3621;
+}
+
+.story-text p {
+  line-height: 1.8;
+  margin-bottom: 15px;
+  color: #666;
+}
+
+.story-values {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  text-align: center;
+}
+
+.value-card {
+  padding: 30px;
+  background: #fdfaf7;
+  border-radius: 12px;
+  transition: transform 0.3s ease;
+}
+
+.value-card:hover {
+  transform: translateY(-5px);
+}
+
+.value-icon {
+  font-size: 40px;
+  color: #8b5a2b; /* Warna aksen cokelat */
+  margin-bottom: 15px;
+}
+
+/* Responsif untuk HP */
+@media (max-width: 768px) {
+  .story-content {
+    flex-direction: column;
+  }
+}

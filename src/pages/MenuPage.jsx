@@ -1,3 +1,7 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useAuth } from "../context/AuthContext";
+import "./MenuPage.css"; 
 
 // HERO
 import bannerImg from "../assets/menu/menu-banner.jpg";
@@ -9,137 +13,126 @@ import cat2 from "../assets/menu/drink-botom.png";
 import cat3 from "../assets/menu/bread1.jpg";
 import cat4 from "../assets/menu/mc.jpg";
 
-// PRODUCT IMAGE
-import latteImg from "../assets/menu/latte.jpg";
-import matchaImg from "../assets/menu/matcha.jpg";
-import chocoImg from "../assets/menu/choco.jpg";
-import croissantImg from "../assets/menu/croissant.jpg";
-import espressoImg from "../assets/menu/espresso.jpg";
-import cappuccinoImg from "../assets/menu/cappucino.jpg";
-
 export default function MenuPage() {
+  const [menus, setMenus] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [showAll, setShowAll] = useState(false); 
+  const { token, isAuthenticated } = useAuth();
 
-  // ===== DATA PRODUK (WAJIB) =====
-  const topMenus = [
-    {
-      name: "Cinamond Latte",
-      desc: "Latte creamy dengan aroma kayu manis hangat.",
-      price: "$30",
-      rating: "⭐ 5.0",
-      img: latteImg,
-    },
-    {
-      name: "Matcha Latte",
-      desc: "Matcha lembut dengan aroma dan rasa khas Jepang.",
-      price: "$30",
-      rating: "⭐ 4.9",
-      img: matchaImg,
-    },
-    {
-      name: "Chocolate Latte",
-      desc: "Coklat premium dengan perpaduan susu creamy, lembut, dan kaya rasa..",
-      price: "$35",
-      rating: "⭐ 4.8",
-      img: chocoImg,
-    },
-    {
-      name: "Espresso",
-      desc: "Kopi hitam pekat dengan crema, diracik untuk para penikmat overthinking",
-      price: "$25",
-      rating: "⭐ 4.7",
-      img: espressoImg,
-    },
-    {
-      name: "Cappuccino",
-      desc: "Espresso dengan foam susu, menghadirkan rasa halus dan creamy.",
-      price: "$38",
-      rating: "⭐ 4.8",
-      img: cappuccinoImg,
-    },
-    {
-      name: "Croissant Salad",
-      desc: "Croissant salad renyah, segar, dan seimbang dalam satu sajian.",
-      price: "$42",
-      rating: "⭐ 4.9",
-      img: croissantImg,
-    },
-  ];
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/products")
+      .then((res) => setMenus(res.data))
+      .catch((err) => console.error("Gagal mengambil data produk:", err));
+  }, []);
+
+  const formatPrice = (price) =>
+    new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+      minimumFractionDigits: 0,
+    }).format(price);
+
+  const addToCart = async (productId) => {
+    if (!isAuthenticated) {
+      alert("Silakan login terlebih dahulu");
+      return;
+    }
+    setLoading(true);
+    try {
+      const res = await axios.post(
+        "http://localhost:8000/api/cart",
+        { product_id: productId },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      alert(res.data.message || "Produk ditambahkan ke keranjang");
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      alert(error.response?.data?.message || "Gagal menambahkan ke keranjang");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const visibleMenus = showAll ? menus : menus.slice(0, 6);
 
   return (
     <div className="menu-page">
-
-      {/* ===== HEADER ===== */}
+      {/* HEADER */}
       <div className="menu-header">
         <span className="welcome">Welcome,</span>
-        <p>Menu kami yang tersedia, sebagai pilihan anda,</p>
+        <p>Menu kami yang tersedia, sebagai pilihan anda</p>
       </div>
 
-      {/* ===== HERO ===== */}
+      {/* HERO */}
       <div className="menu-hero">
         <div className="hero-left">
           <img src={bannerImg} alt="Menu Banner" />
         </div>
-
         <div className="hero-right">
           <img src={coffeeImg} alt="Coffee & Croissant" />
         </div>
       </div>
 
-      {/* ===== CATEGORY ===== */}
-<div className="menu-category">
-  <h3>Kategori</h3>
+      {/* CATEGORY */}
+      <div className="menu-category">
+        <h3>Kategori</h3>
+        <div className="category-scroll">
+          {[cat1, cat2, cat3, cat4].map((cat, idx) => (
+            <div className="category-item" key={idx}>
+              <img src={cat} alt={`Category ${idx}`} />
+              <span>
+                {idx === 0 ? "Coffee" : idx === 1 ? "Non-Coffee" : idx === 2 ? "Bread" : "Main Course"}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
 
-  <div className="category-scroll">
-    <div className="category-item">
-      <img src={cat1} alt="Coffee" />
-      <span>Coffee</span>
-    </div>
-
-    <div className="category-item">
-      <img src={cat2} alt="Drink" />
-      <span>Non-Coffe</span>
-    </div>
-
-    <div className="category-item">
-      <img src={cat3} alt="Bread" />
-      <span>Bread</span>
-    </div>
-
-    <div className="category-item">
-      <img src={cat4} alt="Special" />
-      <span>Main Course</span>
-    </div>
-  </div>
-</div>
-
-
-      {/* ===== TOP MENU ===== */}
+      {/* MENU LIST */}
       <div className="menu-top">
         <div className="menu-top-header">
           <h3>Kategori Teratas</h3>
-          <span>Selengkapnya ➜</span>
+          <span
+            className="see-more"
+            onClick={() => setShowAll(!showAll)}
+          >
+            {showAll ? "Tampilkan lebih sedikit" : "Lihat Selengkapnya ➜"}
+          </span>
         </div>
 
         <div className="menu-grid">
-          {topMenus.map((item, i) => (
-            <div className="menu-card" key={i}>
-              <img src={item.img} alt={item.name} />
+          {visibleMenus.map((item) => (
+            <div className="menu-card" key={item.id}>
+              {item.image ? (
+                <img
+                  src={`http://localhost:8000/storage/uploads/product/${item.image}`}
+                  alt={item.name}
+                  onError={(e) => (e.target.src = "https://via.placeholder.com/150?text=No+Image")}
+                />
+              ) : (
+                <div className="no-image">No Image</div>
+              )}
 
-              <div className="menu-card-body">
+              <div className="menu-info">
                 <h4>{item.name}</h4>
-                <p>{item.desc}</p>
+                <p>{item.description}</p>
 
-                <div className="menu-card-footer">
-                  <span className="price">{item.price}</span>
-                  <span className="rating">{item.rating}</span>
-                  <button>+</button>
+                <div className="menu-footer">
+                  <span className="price">{formatPrice(item.price)}</span>
+                  <button
+                    className="add-btn"
+                    onClick={() => addToCart(item.id)}
+                    disabled={loading}
+                  >
+                    {loading ? "..." : "+"}
+                  </button>
                 </div>
               </div>
             </div>
           ))}
         </div>
       </div>
-
     </div>
   );
 }

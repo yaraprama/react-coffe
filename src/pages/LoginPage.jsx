@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { loginApi } from "../api/auth";
 import { useAuth } from "../context/AuthContext";
@@ -14,6 +14,12 @@ function LoginPage() {
   const navigate = useNavigate();
   const { login, isAuthenticated } = useAuth();
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate("/", { replace: true });
+    }
+  }, [isAuthenticated, navigate]);
+
   const handleChange = (e) => {
     setForm((prev) => ({
       ...prev,
@@ -27,75 +33,97 @@ function LoginPage() {
     setLoading(true);
 
     try {
-      const data = await loginApi(form);
-      login(data.token, data.user);
-      navigate("/"); // balik ke homepage
+      // Panggil loginApi dari auth.js (ini menggunakan fetch/apiRequest)
+      const response = await loginApi(form);
+      
+      // DEBUG: Lihat di console (F12) apakah ada .token langsung atau harus pakai .data
+      console.log("Response Backend:", response);
+
+      /**
+       * KARENA PAKAI FETCH (apiRequest):
+       * Biasanya data tidak dibungkus .data lagi. 
+       * Langsung ambil response.token dan response.user
+       */
+      const token = response?.token;
+      const user = response?.user;
+
+      if (token) {
+        login(token, user); 
+        console.log("Login sukses!");
+        navigate("/"); 
+      } else {
+        // Jika gagal, ambil pesan error dari backend
+        setError(response?.message || "Gagal mendapatkan akses dari server.");
+      }
+
     } catch (err) {
-      setError(err.message || "Login gagal");
+      console.error("Login Error:", err);
+      // Ambil pesan error dari throw yang ada di apiClient
+      setError(err.message || "Terjadi kesalahan saat login.");
     } finally {
       setLoading(false);
     }
   };
 
-  // Kalau sudah login, jangan bisa buka login lagi
-  if (isAuthenticated) {
-    navigate("/");
-    return null;
-  }
-
   return (
     <div className="login-page">
-      <div className="card" style={{ width: "500px" }}>
-        <h2 className="card-title">Login</h2>
-        <p className="card-subtitle">
-          Masukkan email dan kata sandi anda
-        </p>
+      <div className="card" style={{ width: "450px", margin: "80px auto" }}>
+        <div className="card-header text-center">
+          <h2 className="card-title">Login</h2>
+          <p className="card-subtitle">Selamat datang kembali di Arua Coffee</p>
+        </div>
 
-        <form className="form-vertical" onSubmit={handleSubmit}>
-          {/* EMAIL */}
-          <div className="form-field">
-            <label className="form-label">Email</label>
-            <input
-              className="input"
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
+        <div className="card-body">
+          <form className="form-vertical" onSubmit={handleSubmit}>
+            <div className="form-field">
+              <label className="form-label">Email</label>
+              <input
+                className="input"
+                type="email"
+                name="email"
+                placeholder="Masukkan email"
+                value={form.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-          {/* PASSWORD */}
-          <div className="form-field">
-            <label className="form-label">Password</label>
-            <input
-              className="input"
-              type="password"
-              name="password"
-              value={form.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
+            <div className="form-field">
+              <label className="form-label">Password</label>
+              <input
+                className="input"
+                type="password"
+                name="password"
+                placeholder="Masukkan password"
+                value={form.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
 
-          {/* BUTTON */}
-          <button
-            className="btn btn-primary"
-            type="submit"
-            disabled={loading}
-          >
-            {loading ? "Login..." : "Login"}
-          </button>
+            {error && (
+              <div className="alert alert-error" style={{ marginBottom: "15px", color: "red" }}>
+                <strong>Error:</strong> {error}
+              </div>
+            )}
 
-          {/* LINK REGISTER */}
-          <p className="login-link">
-            Belum punya akun?{" "}
-            <Link to="/register">Daftar di sini</Link>
-          </p>
+            <div className="btn-row">
+              <button
+                className="btn btn-primary btn-full"
+                type="submit"
+                disabled={loading}
+              >
+                {loading ? "Sedang Masuk..." : "Login"}
+              </button>
+            </div>
 
-          {/* ERROR */}
-          {error && <div className="alert alert-error">{error}</div>}
-        </form>
+            <div className="text-center login-link" style={{ marginTop: "20px" }}>
+              <p>
+                Belum punya akun? <Link to="/register">Daftar Sekarang</Link>
+              </p>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

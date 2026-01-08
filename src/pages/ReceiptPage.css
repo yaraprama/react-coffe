@@ -1,0 +1,156 @@
+/* src/pages/ReceiptPage.css */
+
+.receipt-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 85vh; /* Sedikit lebih tinggi agar pas dengan Navbar */
+  background-color: #f4f4f4;
+  padding: 40px 20px;
+}
+
+.receipt-card {
+  background: #fff;
+  width: 100%;
+  max-width: 400px;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-top: 5px solid #6f4e37; /* Warna cokelat kopi */
+}
+
+.receipt-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.receipt-header h1 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 5px;
+  letter-spacing: 2px;
+}
+
+.receipt-header p {
+  font-size: 14px;
+  color: #777;
+}
+
+.receipt-body {
+  margin-bottom: 25px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 15px;
+  color: #444;
+}
+
+.status-badge {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+hr {
+  border: 0;
+  border-top: 1px dashed #ccc;
+  margin: 20px 0;
+}
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #333;
+}
+
+.total-row h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.receipt-footer {
+  text-align: center;
+}
+
+.receipt-footer p {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.btn-print {
+  width: 100%;
+  background-color: #6f4e37;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 10px;
+  transition: background 0.3s;
+}
+
+.btn-print:hover {
+  background-color: #5d4030;
+}
+
+.btn-back {
+  display: inline-block;
+  text-decoration: none;
+  color: #6f4e37;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.btn-back:hover {
+  text-decoration: underline;
+}
+
+/* ============================================================
+   PENGATURAN PRINT (Agar Navbar & Footer Hilang Saat Dicetak)
+   ============================================================ */
+@media print {
+  /* Sembunyikan semua elemen navigasi dan tombol */
+  nav, 
+  footer, 
+  header,
+  .navbar, 
+  .footer,
+  .btn-print, 
+  .btn-back {
+    display: none !important;
+  }
+
+  /* Reset layout halaman agar hanya struk yang terlihat */
+  body {
+    background-color: white !important;
+    margin: 0;
+    padding: 0;
+  }
+
+  .receipt-page {
+    background-color: white !important;
+    padding: 0 !important;
+    display: block !important;
+    min-height: auto !important;
+  }
+
+  .receipt-card {
+    box-shadow: none !important;
+    border: none !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 20px !important;
+  }
+}
